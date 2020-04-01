@@ -7,7 +7,8 @@ public class MainClass {
         File file = FileHandler.getFile();
         String fileAsString = Parser.fileToString(FileHandler.getFilePath(file));
         HashMap<String, List<String>> tokens = EntityMention.getAnnotations(fileAsString);
-        System.out.println(tokens.get("PERSON"));
+        //System.out.println(tokens.get("PERSON"));
+        Parser.outputHashmap(tokens);
 
     }
 }
