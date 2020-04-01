@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class Parser {
@@ -15,6 +17,12 @@ public class Parser {
             e.printStackTrace();
         }
         return contentBuilder.toString();
+    }
+
+    public static void outputHashmap(HashMap<String, List<String>> tokens) {
+        for (String key: tokens.keySet()){
+            System.out.println(key + ": " + tokens.get(key));
+        }
     }
 
 }
