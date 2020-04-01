@@ -3,7 +3,7 @@ package Output;
 public class AnonymisedCV {
 
     // query application table to access candidateID and jobID
-    public void readApplicationID() {
+    public void readApplication() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session = HibernateUtil.getSessionFactory().openSession();
