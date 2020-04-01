@@ -1,10 +1,13 @@
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainClass {
     public static void main(String[] args) {
         File file = FileHandler.getFile();
         String fileAsString = Parser.fileToString(FileHandler.getFilePath(file));
-        EntityMention.getAnnotations(fileAsString);
+        HashMap<String, List<String>> tokens = EntityMention.getAnnotations(fileAsString);
+        System.out.println(tokens.get("PERSON"));
 
     }
 }
