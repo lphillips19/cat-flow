@@ -10,6 +10,7 @@ public class EntityMention {
     public static HashMap<String, List<String>> getAnnotations(String file) {
         HashMap<String,List<String>> tokens = new HashMap<>();
         List<String> persons = new ArrayList<>();
+        List<String> cities = new ArrayList<>();
 
         Annotation document = new Annotation(file);
         Properties props = new Properties();
@@ -25,10 +26,14 @@ public class EntityMention {
                         persons.add(entityMention.toString());
                         break;
                     }
+                    case "CITY":{
+                        cities.add(entityMention.toString());
+                    }
                 }
             }
         }
         tokens.put("PERSON", persons);
+        tokens.put("CITY", cities);
         return tokens;
     }
 
