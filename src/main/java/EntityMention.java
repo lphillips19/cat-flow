@@ -8,9 +8,11 @@ public class EntityMention {
 
 
     public static HashMap<String, List<String>> getAnnotations(String file) {
-        HashMap<String,List<String>> tokens = new HashMap<>();
+        HashMap<String,List<String>> tokens = new HashMap<>(); // stores all tokens
         List<String> persons = new ArrayList<>();
-        List<String> cities = new ArrayList<>();
+        List<String> cities = new ArrayList<>(); // location removed
+        List<String> emails = new ArrayList<>(); // emails to remove as could contain name
+
 
         Annotation document = new Annotation(file);
         Properties props = new Properties();
@@ -28,12 +30,20 @@ public class EntityMention {
                     }
                     case "CITY":{
                         cities.add(entityMention.toString());
+                        break;
+
+                    }
+                    case "EMAIL":{
+                        emails.add(entityMention.toString());
+                        break;
+
                     }
                 }
             }
         }
         tokens.put("PERSON", persons);
         tokens.put("CITY", cities);
+        tokens.put("EMAIL", emails);
         return tokens;
     }
 
