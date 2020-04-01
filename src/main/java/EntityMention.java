@@ -9,7 +9,7 @@ public class EntityMention {
 
 
     public static List<CoreMap> getAnnotations(String file) {
-        List<CoreMap> annotations = new ArrayList<>();
+        List<CoreMap> tokens = new ArrayList<>();
         Annotation document = new Annotation(file);
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize,ssplit,pos,lemma,ner,entitymentions");
@@ -18,14 +18,13 @@ public class EntityMention {
 
         for (CoreMap sentence : document.get(CoreAnnotations.SentencesAnnotation.class)) {
             for (CoreMap entityMention : sentence.get(CoreAnnotations.MentionsAnnotation.class)) {
-                annotations.add(entityMention);
+                tokens.add(entityMention);
                 System.out.println(entityMention);
                 System.out.println(entityMention.get(CoreAnnotations.EntityTypeAnnotation.class));
             }
         }
-        return annotations;
+        return tokens;
     }
-
 
 
 
