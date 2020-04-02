@@ -1,5 +1,7 @@
 package Database;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "companies")
 public class Companies {
@@ -15,6 +17,9 @@ public class Companies {
     private String Phone;
 
     @Column String Email;
+
+    @ManyToMany(mappedBy = "companies")
+    private Set<Companies> applications = new HashSet<>();
 
     public Companies(String name, String phone, String email) {
         Name = name;
