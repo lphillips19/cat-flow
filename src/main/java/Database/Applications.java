@@ -2,8 +2,11 @@ package Database;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "applications")
+@Table
 public class Applications {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -11,16 +14,22 @@ public class Applications {
     private int ApplicationID;
 
     @Column
-    @ManyToOne
-    private Collection<Candidates> candidate = new ArrayList<Candidates>();
+    private int CandidateID;
 
     @Column
-    @ManyToOne
-    private Collection<Jobs> job = new ArrayList<Jobs>();
+    private int JobID;
 
-    public Applications(int JobID, Collection<Candidates> candidate){
+    @ManyToMany()
+    @JoinTable(
+            name = "jobs",
+            joinColumns = {@JoinColumn(name = "ApplicationID")},
+            inverseJoinColumns = {@JoinColumn(name = "CompanyID")}
+    )
+    Set<Companies> applications = new HashSet<>();
+
+    public Applications(int JobID, int candidateID){
         this.ApplicationID = JobID;
-        this.candidate = candidate;
+        this.CandidateID = candidateID;
     }
 
     public Applications(){
@@ -31,19 +40,19 @@ public class Applications {
         return ApplicationID;
     }
 
-    public Collection<Candidates> getCandidateID() {
-        return candidate;
+    public int getCandidateID() {
+        return CandidateID;
     }
 
-    public Collection<Jobs> getJobID() {
-        return job;
+    public int getJobID() {
+        return JobID;
     }
 
-    public void setJob(Collection<Jobs> job) {
-        this.job = job;
+    public void setJob(int jobID) {
+        this.JobID = jobID;
     }
 
-    public void setCandidate(Collection<Candidates> candidate) {
-        this.candidate = candidate;
+    public void setCandidate(int candidateID) {
+        this.CandidateID = candidateID;
     }
 }
