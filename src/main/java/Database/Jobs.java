@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity(name = "jobs")
+@Table
 public class Jobs {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,8 +13,7 @@ public class Jobs {
     private int JobID;
 
     @Column
-    @ManyToOne
-    private Collection<Companies> company = new ArrayList<Companies>();
+    private int CompanyID;
 
     @Column
     private String Name;
@@ -21,8 +21,8 @@ public class Jobs {
     @Column
     private String jobDescription;
 
-    public Jobs(Collection<Companies> company, String Name, String jobDescription) {
-        this.company = company;
+    public Jobs(int companyID, String Name, String jobDescription) {
+        this.CompanyID = companyID;
         this.Name = Name;
         this.jobDescription = jobDescription;
     }
@@ -31,12 +31,12 @@ public class Jobs {
 
     }
 
-    public Collection<Companies> getCompany() {
-        return company;
+    public int getCompany() {
+        return CompanyID;
     }
 
-    public void setCompany(Collection<Companies> company) {
-        this.company = company;
+    public void setCompany(int companyID) {
+        this.CompanyID = companyID;
     }
 
     public String getName() {

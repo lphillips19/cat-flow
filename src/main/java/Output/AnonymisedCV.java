@@ -1,5 +1,14 @@
 package Output;
 
+import Database.Applications;
+import Database.HibernateUtil;
+import Database.Qualifications;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
+import java.util.Iterator;
+import java.util.List;
+
 public class AnonymisedCV {
 
     // query application table to access candidateID and jobID
@@ -8,10 +17,10 @@ public class AnonymisedCV {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-            List applications = session.createQuery("FROM APPLICATION").list();
-            for (Iterator<Car> iterator = cars.iterator(); iterator.
+            List applications = session.createQuery("FROM APPLICATIONS").list();
+            for (Iterator<Applications> iterator = applications.iterator(); iterator.
                     hasNext(); ) {
-                Application application = iterator.next();
+                Applications application = iterator.next();
                 System.out.print("CandidateID: " + application.getCandidateID());
                 System.out.print("ApplicationID: " + application.getJobID());
             }
@@ -31,12 +40,12 @@ public class AnonymisedCV {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             List qualifications = session.createQuery("FROM QUALIFICATIONS").list();
-            for (Iterator<Car> iterator = cars.iterator(); iterator.
+            for (Iterator<Qualifications> iterator = qualifications.iterator(); iterator.
                     hasNext(); ) {
-                Application application = iterator.next();
-                System.out.print("Name: " + application.getName());
-                System.out.print("Level: " + application.getLevel());
-                System.out.print("Result: " + application.getResult());
+                Qualifications qualification = iterator.next();
+                System.out.print("Name: " + qualification.getName());
+                System.out.print("Level: " + qualification.getLevel());
+                System.out.print("Result: " + qualification.getResult());
             }
             session.getTransaction().commit();
         } catch (HibernateException e) {

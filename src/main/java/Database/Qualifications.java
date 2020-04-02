@@ -1,7 +1,7 @@
 package Database;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "qualifications")
 public class Qualifications {
@@ -11,8 +11,7 @@ public class Qualifications {
     private int QualificationID;
 
     @Column
-    @ManyToOne
-    private Collection<Applications> Applicaition = new ArrayList<Applications>();
+    private int ApplicationID;
 
     @Column
     private String Name;
@@ -23,8 +22,16 @@ public class Qualifications {
     @Column
     private String Result;
 
-    public Qualifications(Collection<Applications> applicaition, String name, String level, String result) {
-        Applicaition = applicaition;
+    @ManyToMany
+    @JoinTable(
+            name = "applications",
+            joinColumns = {@JoinColumn(name = "CandidateID")},
+            inverseJoinColumns = {@JoinColumn(name = "JobID")}
+    )
+    Set<Candidates> candidates = new HashSet<>();
+
+    public Qualifications(int applicationID, String name, String level, String result) {
+        ApplicationID = applicationID;
         Name = name;
         Level = level;
         Result = result;
@@ -42,12 +49,12 @@ public class Qualifications {
         QualificationID = qualificationID;
     }
 
-    public Collection<Applications> getApplicaition() {
-        return Applicaition;
+    public int getApplicaition() {
+        return ApplicationID;
     }
 
-    public void setApplicaition(Collection<Applications> applicaition) {
-        Applicaition = applicaition;
+    public void setApplicaition(int applicaitionID) {
+        ApplicationID = applicaitionID;
     }
 
     public String getName() {
